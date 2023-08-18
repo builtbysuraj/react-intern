@@ -1,5 +1,6 @@
 import { Box, Button, FormControl, TextField, Typography } from "@mui/material"
-import { useState } from "react"
+import { useEffect, useState } from "react"
+import { useLocation, useNavigate } from "react-router-dom"
 
 export default function LogIn() {
   const [formValues, setFormValues] = useState({
@@ -7,6 +8,9 @@ export default function LogIn() {
     phone: "",
     email: "",
   })
+  const [showMsg, setShowMsg] = useState(false)
+  const navigate = useNavigate()
+  const location = useLocation()
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target
@@ -18,8 +22,24 @@ export default function LogIn() {
 
   const handleLogin = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-    console.log(formValues)
+    localStorage.setItem("formValues", JSON.stringify(formValues))
+    if (localStorage.getItem("formValues")) {
+      navigate("/")
+    } else {
+      console.log("You must fill all details")
+    }
   }
+
+  useEffect(() => {
+    // check if user try to visit Home page
+    if (location.state && location.state.fromProtectedRoute) {
+      setShowMsg(true)
+      // clear location state
+      navigate(location.pathname, { replace: true, state: {} })
+    }
+  }, [location])
+
+  if (showMsg) console.log("dont do it")
 
   return (
     <Box
