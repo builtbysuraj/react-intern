@@ -35,7 +35,7 @@ export default function PostList() {
   ]
 
   return (
-    <Box sx={{ height: 450, width: "100%" }}>
+    <Box sx={{ height: 550, width: "100%" }}>
       <DataGrid
         rows={posts}
         columns={columns}
@@ -48,6 +48,7 @@ export default function PostList() {
           "& .MuiDataGrid-columnHeader": {
             fontSize: 20,
           },
+          marginRight: 8,
         }}
       />
     </Box>
