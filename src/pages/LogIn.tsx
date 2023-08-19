@@ -71,7 +71,7 @@ export default function LogIn() {
           onChange={handleInputChange}
           id="phone"
           label="Phone Number"
-          type="phone"
+          type="number"
           name="phone"
         />
         <TextField
