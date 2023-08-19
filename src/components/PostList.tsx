@@ -28,9 +28,9 @@ export default function PostList() {
   }, [])
 
   const columns: GridColDef[] = [
-    { field: "id", headerName: "id", width: 200 },
-    { field: "userId", headerName: "UserID", width: 200 },
-    { field: "title", headerName: "Title", width: 250 },
+    { field: "id", headerName: "id", width: 100 },
+    { field: "userId", headerName: "UserID", width: 100 },
+    { field: "title", headerName: "Title", width: 200 },
     { field: "body", headerName: "Body", width: 200 },
   ]
 
