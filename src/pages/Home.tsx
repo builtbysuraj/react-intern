@@ -6,7 +6,9 @@ export default function Home() {
   return (
     <Grid container spacing={3} m={2}>
       <Grid item xs={12}>
-        <Typography variant="h3">Welcome</Typography>
+        <Typography variant="h3" textAlign={"center"}>
+          Welcome
+        </Typography>
       </Grid>
       <Grid item xs={6}>
         <NestedTree />

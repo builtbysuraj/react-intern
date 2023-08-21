@@ -1,4 +1,11 @@
-import { Box, Button, FormControl, TextField, Typography } from "@mui/material"
+import {
+  Alert,
+  Box,
+  Button,
+  FormControl,
+  TextField,
+  Typography,
+} from "@mui/material"
 import { useEffect, useState } from "react"
 import { useLocation, useNavigate } from "react-router-dom"
 
@@ -12,6 +19,7 @@ export default function LogIn() {
   const navigate = useNavigate()
   const location = useLocation()
 
+  // saving form details in local state
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target
     setFormValues((prevValues) => ({
@@ -22,24 +30,30 @@ export default function LogIn() {
 
   const handleLogin = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
+    // save details in localStorage
     localStorage.setItem("formValues", JSON.stringify(formValues))
+    // check if localStorage has value
     if (localStorage.getItem("formValues")) {
       navigate("/")
     } else {
-      console.log("You must fill all details")
+      setShowMsg(true)
     }
   }
 
   useEffect(() => {
-    // check if user try to visit Home page
+    // Check if the user was redirected from a protected route.
     if (location.state && location.state.fromProtectedRoute) {
-      setShowMsg(true)
-      // clear location state
+      // Check if the user has previously visited the login page.
+      if (sessionStorage.getItem("hasVisitedLoginPage")) {
+        setShowMsg(true)
+      } else {
+        // Save that they have not visited the login page.
+        sessionStorage.setItem("hasVisitedLoginPage", "true")
+      }
+      // Clear the location state.
       navigate(location.pathname, { replace: true, state: {} })
     }
   }, [location])
-
-  if (showMsg) console.log("dont do it")
 
   return (
     <Box
@@ -54,6 +68,12 @@ export default function LogIn() {
         height: "100vh",
       }}
     >
+      {showMsg ? (
+        <Alert severity="warning">
+          Enter all details before accessing the page
+        </Alert>
+      ) : null}
+
       <Typography variant="h3">Log In</Typography>
       <FormControl>
         <TextField
