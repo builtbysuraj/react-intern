@@ -1,32 +1,11 @@
 import { Box } from "@mui/material"
 import { DataGrid, GridColDef } from "@mui/x-data-grid"
-import { useEffect, useState } from "react"
+import useFetch from "../hooks/useFetch"
 
 export default function PostList() {
-  interface Post {
-    userId: number
-    id: number
-    title: string
-    body: string
-  }
-
-  const [posts, setPosts] = useState<Post[]>([])
-
-  const fetchData = async () => {
-    try {
-      const res = await fetch("https://jsonplaceholder.typicode.com/posts")
-      if (!res.ok) throw new Error("Responce is not OK!")
-      const data = await res.json()
-      setPosts(data)
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
-  useEffect(() => {
-    fetchData()
-  }, [])
-
+  const url = `https://jsonplaceholder.typicode.com/posts`
+  const { posts } = useFetch(url)
+  
   const columns: GridColDef[] = [
     { field: "id", headerName: "id", width: 100 },
     { field: "userId", headerName: "UserID", width: 100 },
