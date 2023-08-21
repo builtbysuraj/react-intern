@@ -1,5 +1,5 @@
 import { Grid, Typography } from "@mui/material"
-import NestedTree from "../components/NestedTree"
+import NestedTree from "../components/ParentTree"
 import PostList from "../components/PostList"
 
 export default function Home() {

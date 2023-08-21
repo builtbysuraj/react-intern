@@ -1,15 +1,8 @@
 import { useState } from "react"
+import data from "../data/data.json"
+import ChildTree from "./ChildTree"
 
-type Department = {
-  department: string
-  sub_departments: string[]
-}
-
-type TreeStructureProps = {
-  data: Department[]
-}
-
-export default function TreeStructure({ data }: TreeStructureProps) {
+export default function ParentTree() {
   const [expanded, setExpanded] = useState<Record<string, boolean>>({})
   const [selected, setSelected] = useState<Record<string, boolean>>({})
 
@@ -96,16 +89,12 @@ export default function TreeStructure({ data }: TreeStructureProps) {
           {expanded[department.department] && (
             <ul style={{ listStyle: "none" }}>
               {department.sub_departments.map((subDepartment) => (
-                <li key={subDepartment}>
-                  <input
-                    type="checkbox"
-                    checked={!!selected[subDepartment]}
-                    onChange={(e) =>
-                      handleSelectSubDepartment(subDepartment, e.target.checked)
-                    }
-                  />
-                  <label>{subDepartment}</label>
-                </li>
+                <ChildTree
+                  key={subDepartment}
+                  subDepartment={subDepartment}
+                  handleSelectSubDepartment={handleSelectSubDepartment}
+                  selected={selected}
+                />
               ))}
             </ul>
           )}
