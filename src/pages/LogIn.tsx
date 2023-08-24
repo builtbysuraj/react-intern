@@ -30,6 +30,10 @@ export default function LogIn() {
 
   const handleLogin = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
+    if (formValues.phone.length < 10) {
+      alert("Phone number must be at least 10 digits long")
+      return
+    }
     // save details in localStorage
     localStorage.setItem("formValues", JSON.stringify(formValues))
     // check if localStorage has value
